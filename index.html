@@ -133,16 +133,7 @@
         }
         
         .room-box.registered {
-            opacity: 0.3;
-            background: rgba(16, 185, 129, 0.2);
-            border-color: rgba(16, 185, 129, 0.4);
-            pointer-events: none;
-            cursor: default;
-        }
-        
-        .room-box.registered:hover {
-            transform: none;
-            box-shadow: none;
+            display: none;
         }
         
         .empty-room {
@@ -621,6 +612,13 @@
             } else {
                 registerBtn.classList.remove('animate-pulse');
             }
+            
+            // AUTO-REGISTRO: Se tiver quarto, status, limpeza e pessoas selecionados
+            if (selectedRoom && selectedStatus && selectedCleaning && selectedPeople !== null) {
+                setTimeout(() => {
+                    registerBtn.click();
+                }, 100); // Pequeno delay para feedback visual
+            }
         }
 
         // Registrar quarto
@@ -642,11 +640,10 @@
                 time: time
             });
             
-            // Marcar quarto como registrado
+            // Marcar quarto como registrado (vai desaparecer)
             const roomBox = document.querySelector(`[data-room="${selectedRoom}"]`);
             if (roomBox) {
                 roomBox.classList.add('registered');
-                roomBox.innerHTML = `${selectedRoom}<div class="text-xs mt-1">✓ FEITO</div>`;
             }
             
             // Resetar seleções
@@ -737,11 +734,12 @@
             records = [];
             resetSelections();
             
-            // Restaurar todos os quartos
+            // Restaurar todos os quartos (fazê-los aparecer novamente)
             document.querySelectorAll('.room-box').forEach(box => {
                 if (!box.classList.contains('empty-room')) {
                     box.classList.remove('registered', 'selected');
                     box.innerHTML = box.dataset.room;
+                    box.style.display = 'flex'; // Garantir que apareçam novamente
                 }
             });
             
@@ -860,29 +858,23 @@
                         /* Larguras das colunas responsivas */
                         .print-table th:nth-child(1),
                         .print-table td:nth-child(1) {
-                            width: 15%;
+                            width: 20%;
                             text-align: center;
                             font-weight: bold;
                         }
                         
                         .print-table th:nth-child(2),
                         .print-table td:nth-child(2) {
-                            width: 22%;
+                            width: 30%;
                         }
                         
                         .print-table th:nth-child(3),
                         .print-table td:nth-child(3) {
-                            width: 20%;
+                            width: 25%;
                         }
                         
                         .print-table th:nth-child(4),
                         .print-table td:nth-child(4) {
-                            width: 18%;
-                            text-align: center;
-                        }
-                        
-                        .print-table th:nth-child(5),
-                        .print-table td:nth-child(5) {
                             width: 25%;
                             text-align: center;
                         }
@@ -1070,7 +1062,6 @@
                                     <th>Status</th>
                                     <th>Limpeza</th>
                                     <th>Pessoas</th>
-                                    <th>Hora</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1079,8 +1070,7 @@
                                         <td><strong>${record.room}</strong></td>
                                         <td>${record.status === 'Reservado' ? '🟢 Reservado' : record.status === 'Disponível' ? '🔴 Disponível' : '❓ Não informado'}</td>
                                         <td>${record.cleaning === 'Limpo' ? '✨ Limpo' : record.cleaning === 'Sujo' ? '🧹 Sujo' : '❓ Não informado'}</td>
-                                        <td>${record.people === 'Não informado' ? '❓ N/I' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
-                                        <td>${record.time}</td>
+                                        <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
@@ -1160,5 +1150,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800565d8726f61a',t:'MTc1ODAyNTQzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98006c488101f62e',t:'MTc1ODAyNjMyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
