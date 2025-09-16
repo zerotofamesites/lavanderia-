@@ -737,7 +737,6 @@
                 <html lang="pt-BR">
                 <head>
                     <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Relatório de Limpeza de Quartos</title>
                     <style>
                         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -751,83 +750,80 @@
                             background: white;
                             color: black;
                             margin: 0;
-                            padding: 15px;
+                            padding: 20mm;
                             line-height: 1.4;
-                            font-size: 11px;
+                            font-size: 12pt;
+                            width: 210mm;
+                            height: 210mm;
                         }
                         
                         .container {
-                            max-width: 100%;
-                            margin: 0 auto;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
                         }
                         
                         .print-header {
                             text-align: center;
-                            margin-bottom: 25px;
+                            margin-bottom: 20mm;
                             border-bottom: 2px solid #000;
-                            padding-bottom: 12px;
-                            page-break-inside: avoid;
+                            padding-bottom: 10mm;
                         }
                         
                         .print-title {
-                            font-size: 20px;
+                            font-size: 18pt;
                             font-weight: bold;
-                            margin-bottom: 5px;
+                            margin-bottom: 5mm;
                             color: black;
-                            word-wrap: break-word;
                         }
                         
                         .print-subtitle {
-                            font-size: 12px;
+                            font-size: 12pt;
                             color: #666;
-                            margin-bottom: 8px;
-                            word-wrap: break-word;
+                            margin-bottom: 5mm;
                         }
                         
                         .print-date {
-                            font-size: 10px;
+                            font-size: 10pt;
                             color: #666;
                         }
                         
                         .print-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 25px;
+                            margin-bottom: 15mm;
                             table-layout: fixed;
                         }
                         
                         .print-table th,
                         .print-table td {
                             border: 1px solid #000;
-                            padding: 6px 4px;
+                            padding: 3mm;
                             text-align: left;
                             color: black;
-                            word-wrap: break-word;
-                            overflow-wrap: break-word;
-                            hyphens: auto;
                         }
                         
                         .print-table th {
                             background-color: #f0f0f0;
                             font-weight: bold;
-                            font-size: 11px;
+                            font-size: 11pt;
                         }
                         
                         .print-table td {
-                            font-size: 10px;
+                            font-size: 10pt;
                         }
                         
-                        /* Larguras das colunas responsivas */
                         .print-table th:nth-child(1),
                         .print-table td:nth-child(1) {
-                            width: 20%;
+                            width: 25%;
                             text-align: center;
                             font-weight: bold;
                         }
                         
                         .print-table th:nth-child(2),
                         .print-table td:nth-child(2) {
-                            width: 30%;
+                            width: 25%;
                         }
                         
                         .print-table th:nth-child(3),
@@ -843,169 +839,37 @@
                         
                         .print-stats {
                             display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                            gap: 15px;
-                            margin-top: 20px;
-                            padding-top: 15px;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 10mm;
+                            margin-top: auto;
+                            padding-top: 10mm;
                             border-top: 1px solid #000;
-                            page-break-inside: avoid;
                         }
                         
                         .print-stat {
                             text-align: center;
-                            padding: 8px;
+                            padding: 5mm;
                             border: 1px solid #ddd;
-                            border-radius: 4px;
+                            border-radius: 2mm;
                             background-color: #f9f9f9;
                         }
                         
                         .print-stat-number {
-                            font-size: 16px;
+                            font-size: 16pt;
                             font-weight: bold;
                             color: black;
-                            margin-bottom: 2px;
+                            margin-bottom: 2mm;
                         }
                         
                         .print-stat-label {
-                            font-size: 9px;
+                            font-size: 10pt;
                             color: #666;
                             font-weight: 500;
                         }
                         
-                        /* Responsividade para diferentes tamanhos */
-                        @media screen and (max-width: 768px) {
-                            body {
-                                padding: 10px;
-                                font-size: 10px;
-                            }
-                            
-                            .print-title {
-                                font-size: 18px;
-                            }
-                            
-                            .print-subtitle {
-                                font-size: 11px;
-                            }
-                            
-                            .print-table th,
-                            .print-table td {
-                                padding: 4px 2px;
-                                font-size: 9px;
-                            }
-                            
-                            .print-stats {
-                                grid-template-columns: repeat(2, 1fr);
-                                gap: 10px;
-                            }
-                        }
-                        
-                        @media screen and (max-width: 480px) {
-                            body {
-                                padding: 8px;
-                                font-size: 9px;
-                            }
-                            
-                            .print-title {
-                                font-size: 16px;
-                            }
-                            
-                            .print-table th,
-                            .print-table td {
-                                padding: 3px 1px;
-                                font-size: 8px;
-                            }
-                            
-                            .print-stats {
-                                grid-template-columns: 1fr;
-                            }
-                        }
-                        
-                        /* Otimizações para impressão */
-                        @media print {
-                            body {
-                                padding: 10mm;
-                                font-size: 10pt;
-                                -webkit-print-color-adjust: exact;
-                                print-color-adjust: exact;
-                            }
-                            
-                            .container {
-                                max-width: none;
-                            }
-                            
-                            .print-header {
-                                margin-bottom: 15mm;
-                                padding-bottom: 8mm;
-                            }
-                            
-                            .print-title {
-                                font-size: 16pt;
-                            }
-                            
-                            .print-subtitle {
-                                font-size: 10pt;
-                            }
-                            
-                            .print-date {
-                                font-size: 8pt;
-                            }
-                            
-                            .print-table {
-                                margin-bottom: 15mm;
-                                page-break-inside: auto;
-                            }
-                            
-                            .print-table th,
-                            .print-table td {
-                                padding: 3mm 2mm;
-                                font-size: 8pt;
-                            }
-                            
-                            .print-table th {
-                                font-size: 9pt;
-                            }
-                            
-                            .print-stats {
-                                margin-top: 10mm;
-                                padding-top: 8mm;
-                                grid-template-columns: repeat(5, 1fr);
-                                gap: 8mm;
-                            }
-                            
-                            .print-stat {
-                                padding: 4mm;
-                            }
-                            
-                            .print-stat-number {
-                                font-size: 12pt;
-                            }
-                            
-                            .print-stat-label {
-                                font-size: 7pt;
-                            }
-                            
-                            /* Quebras de página inteligentes */
-                            .print-header {
-                                page-break-after: avoid;
-                            }
-                            
-                            .print-table thead {
-                                display: table-header-group;
-                            }
-                            
-                            .print-table tbody tr {
-                                page-break-inside: avoid;
-                            }
-                            
-                            .print-stats {
-                                page-break-inside: avoid;
-                            }
-                        }
-                        
-                        /* Impressão A4 específica */
                         @page {
-                            size: A4;
-                            margin: 15mm;
+                            size: 210mm 210mm;
+                            margin: 0;
                         }
                     </style>
                 </head>
@@ -1030,13 +894,32 @@
                                 ${records.map(record => `
                                     <tr>
                                         <td><strong>${record.room}</strong></td>
-                                        <td>${record.status === 'Reservado' ? '🟢 Reservado' : record.status === 'Disponível' ? '🔴 Disponível' : '❓ Não informado'}</td>
-                                        <td>${record.cleaning === 'Limpo' ? '✨ Limpo' : record.cleaning === 'Sujo' ? '🧹 Sujo' : '❓ Não informado'}</td>
+                                        <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Disponível' ? 'Disponível' : 'Não informado'}</td>
+                                        <td>${record.cleaning === 'Limpo' ? 'Limpo' : record.cleaning === 'Sujo' ? 'Sujo' : 'Não informado'}</td>
                                         <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
                                     </tr>
                                 `).join('')}
                             </tbody>
                         </table>
+                        
+                        <div class="print-stats">
+                            <div class="print-stat">
+                                <div class="print-stat-number">${reserved}</div>
+                                <div class="print-stat-label">Reservados</div>
+                            </div>
+                            <div class="print-stat">
+                                <div class="print-stat-number">${available}</div>
+                                <div class="print-stat-label">Disponíveis</div>
+                            </div>
+                            <div class="print-stat">
+                                <div class="print-stat-number">${clean}</div>
+                                <div class="print-stat-label">Limpos</div>
+                            </div>
+                            <div class="print-stat">
+                                <div class="print-stat-number">${dirty}</div>
+                                <div class="print-stat-label">Sujos</div>
+                            </div>
+                        </div>
                         
 
                     </div>
@@ -1091,5 +974,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800a420c6e6f62f',t:'MTc1ODAyODYxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800b2bad293f61b',t:'MTc1ODAyOTIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
