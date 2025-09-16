@@ -737,62 +737,26 @@
                 <html lang="pt-BR">
                 <head>
                     <meta charset="UTF-8">
-                    <title>Relatório de Limpeza de Quartos</title>
+                    <title>Relatório de Limpeza</title>
                     <style>
-                        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-                        
                         * {
                             box-sizing: border-box;
                         }
                         
                         body {
-                            font-family: 'Inter', sans-serif;
+                            font-family: Arial, sans-serif;
                             background: white;
                             color: black;
                             margin: 0;
-                            padding: 20mm;
-                            line-height: 1.4;
+                            padding: 10mm;
                             font-size: 12pt;
                             width: 210mm;
                             height: 210mm;
                         }
                         
-                        .container {
-                            width: 100%;
-                            height: 100%;
-                            display: flex;
-                            flex-direction: column;
-                        }
-                        
-                        .print-header {
-                            text-align: center;
-                            margin-bottom: 20mm;
-                            border-bottom: 2px solid #000;
-                            padding-bottom: 10mm;
-                        }
-                        
-                        .print-title {
-                            font-size: 18pt;
-                            font-weight: bold;
-                            margin-bottom: 5mm;
-                            color: black;
-                        }
-                        
-                        .print-subtitle {
-                            font-size: 12pt;
-                            color: #666;
-                            margin-bottom: 5mm;
-                        }
-                        
-                        .print-date {
-                            font-size: 10pt;
-                            color: #666;
-                        }
-                        
                         .print-table {
                             width: 100%;
                             border-collapse: collapse;
-                            margin-bottom: 15mm;
                             table-layout: fixed;
                         }
                         
@@ -837,36 +801,6 @@
                             text-align: center;
                         }
                         
-                        .print-stats {
-                            display: grid;
-                            grid-template-columns: repeat(2, 1fr);
-                            gap: 10mm;
-                            margin-top: auto;
-                            padding-top: 10mm;
-                            border-top: 1px solid #000;
-                        }
-                        
-                        .print-stat {
-                            text-align: center;
-                            padding: 5mm;
-                            border: 1px solid #ddd;
-                            border-radius: 2mm;
-                            background-color: #f9f9f9;
-                        }
-                        
-                        .print-stat-number {
-                            font-size: 16pt;
-                            font-weight: bold;
-                            color: black;
-                            margin-bottom: 2mm;
-                        }
-                        
-                        .print-stat-label {
-                            font-size: 10pt;
-                            color: #666;
-                            font-weight: 500;
-                        }
-                        
                         @page {
                             size: 210mm 210mm;
                             margin: 0;
@@ -874,55 +808,26 @@
                     </style>
                 </head>
                 <body>
-                    <div class="container">
-                        <div class="print-header">
-                            <div class="print-title">Relatório de Limpeza de Quartos</div>
-                            <div class="print-subtitle">Sistema de Controle Hoteleiro - Entrada Rápida</div>
-                            <div class="print-date">Gerado em: ${dateStr} às ${timeStr}</div>
-                        </div>
-                        
-                        <table class="print-table">
-                            <thead>
+                    <table class="print-table">
+                        <thead>
+                            <tr>
+                                <th>Quarto</th>
+                                <th>Status</th>
+                                <th>Limpeza</th>
+                                <th>Pessoas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${records.map(record => `
                                 <tr>
-                                    <th>Quarto</th>
-                                    <th>Status</th>
-                                    <th>Limpeza</th>
-                                    <th>Pessoas</th>
+                                    <td><strong>${record.room}</strong></td>
+                                    <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Disponível' ? 'Disponível' : 'Não informado'}</td>
+                                    <td>${record.cleaning === 'Limpo' ? 'Limpo' : record.cleaning === 'Sujo' ? 'Sujo' : 'Não informado'}</td>
+                                    <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                ${records.map(record => `
-                                    <tr>
-                                        <td><strong>${record.room}</strong></td>
-                                        <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Disponível' ? 'Disponível' : 'Não informado'}</td>
-                                        <td>${record.cleaning === 'Limpo' ? 'Limpo' : record.cleaning === 'Sujo' ? 'Sujo' : 'Não informado'}</td>
-                                        <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                        
-                        <div class="print-stats">
-                            <div class="print-stat">
-                                <div class="print-stat-number">${reserved}</div>
-                                <div class="print-stat-label">Reservados</div>
-                            </div>
-                            <div class="print-stat">
-                                <div class="print-stat-number">${available}</div>
-                                <div class="print-stat-label">Disponíveis</div>
-                            </div>
-                            <div class="print-stat">
-                                <div class="print-stat-number">${clean}</div>
-                                <div class="print-stat-label">Limpos</div>
-                            </div>
-                            <div class="print-stat">
-                                <div class="print-stat-number">${dirty}</div>
-                                <div class="print-stat-label">Sujos</div>
-                            </div>
-                        </div>
-                        
-
-                    </div>
+                            `).join('')}
+                        </tbody>
+                    </table>
                 </body>
                 </html>
             `;
@@ -974,5 +879,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800b2bad293f61b',t:'MTc1ODAyOTIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800b832b4d8f61a',t:'MTc1ODAyOTQzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
