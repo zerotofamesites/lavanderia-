@@ -50,48 +50,8 @@
         .glow {
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            position: relative;
-        }
-        
-        .glow::before {
-            content: '';
-            position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                transparent 60deg,
-                rgba(59, 130, 246, 0.8) 120deg,
-                rgba(147, 51, 234, 0.8) 180deg,
-                rgba(16, 185, 129, 0.8) 240deg,
-                transparent 300deg,
-                transparent 360deg
-            );
-            border-radius: inherit;
-            z-index: -1;
-            animation: circularGlow 3s linear infinite;
-        }
-        
-        .glow::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(147, 51, 234, 0.2), rgba(16, 185, 129, 0.2));
-            border-radius: inherit;
-            z-index: -1;
-        }
-        
-        @keyframes circularGlow {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
         }
         
         /* Estilos das caixinhas de quartos */
@@ -113,13 +73,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
         }
         
         .room-box:hover {
             border-color: rgba(147, 51, 234, 0.6);
             background: rgba(59, 130, 246, 0.1);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.2);
+            box-shadow: 
+                0 0 0 2px rgba(59, 130, 246, 0.6),
+                0 8px 25px rgba(59, 130, 246, 0.2);
         }
         
         .room-box.selected {
@@ -128,6 +91,7 @@
             color: white;
             transform: scale(1.05);
             box-shadow: 
+                0 0 0 3px rgba(59, 130, 246, 0.8),
                 0 0 20px rgba(59, 130, 246, 0.4),
                 inset 0 0 10px rgba(59, 130, 246, 0.1);
         }
@@ -212,23 +176,18 @@
         }
         
         .record-row {
-            padding: 8px 12px;
+            padding: 2px 6px;
             border-bottom: 1px solid rgba(59, 130, 246, 0.1);
             display: grid;
-            grid-template-columns: 60px 80px 60px 60px 80px;
-            gap: 8px;
+            grid-template-columns: 40px 30px 30px 30px;
+            gap: 4px;
             align-items: center;
-            font-size: 12px;
+            font-size: 10px;
+            line-height: 1.2;
         }
         
         .record-row:last-child {
             border-bottom: none;
-        }
-        
-        .record-header {
-            background: rgba(59, 130, 246, 0.2);
-            font-weight: bold;
-            color: white;
         }
         
         /* Estilos para impressão */
@@ -481,16 +440,9 @@
                     
                     <!-- Tabela de Registros -->
                     <div class="records-table">
-                        <div class="record-row record-header">
-                            <div>Quarto</div>
-                            <div>Status</div>
-                            <div>Limpeza</div>
-                            <div>Pessoas</div>
-                            <div>Hora</div>
-                        </div>
                         <div id="recordsContainer">
-                            <div class="text-center text-gray-400 py-8 text-sm">
-                                Nenhum registro ainda
+                            <div class="text-center text-gray-400 py-4 text-xs">
+                                Nenhum registro
                             </div>
                         </div>
                     </div>
@@ -688,22 +640,21 @@
         function updateRecordsDisplay() {
             if (records.length === 0) {
                 recordsContainer.innerHTML = `
-                    <div class="text-center text-gray-400 py-8 text-sm">
-                        Nenhum registro ainda
+                    <div class="text-center text-gray-400 py-4 text-xs">
+                        Nenhum registro
                     </div>
                 `;
             } else {
-                recordsContainer.innerHTML = records.slice(0, 15).map(record => `
+                recordsContainer.innerHTML = records.slice(0, 20).map(record => `
                     <div class="record-row text-gray-300">
-                        <div class="text-white font-semibold">${record.room}</div>
+                        <div class="text-white font-bold">${record.room}</div>
                         <div class="text-xs ${record.status === 'Reservado' ? 'text-red-400' : record.status === 'Disponível' ? 'text-green-400' : 'text-gray-400'}">
-                            ${record.status === 'Reservado' ? '🟢 Res' : record.status === 'Disponível' ? '🔴 Disp' : '❓ N/I'}
+                            ${record.status === 'Reservado' ? 'Res' : record.status === 'Disponível' ? 'Disp' : 'N/I'}
                         </div>
                         <div class="text-xs ${record.cleaning === 'Limpo' ? 'text-blue-400' : record.cleaning === 'Sujo' ? 'text-yellow-400' : 'text-gray-400'}">
-                            ${record.cleaning === 'Limpo' ? '✨ Limpo' : record.cleaning === 'Sujo' ? '🧹 Sujo' : '❓ N/I'}
+                            ${record.cleaning === 'Limpo' ? 'Lim' : record.cleaning === 'Sujo' ? 'Suj' : 'N/I'}
                         </div>
-                        <div class="text-white">${record.people}</div>
-                        <div class="text-gray-400 text-xs">${record.time}</div>
+                        <div class="text-white text-xs">${record.people}</div>
                     </div>
                 `).join('');
             }
@@ -1140,5 +1091,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'980079b1137bf634',t:'MTc1ODAyNjg3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'980091e5212b274f',t:'MTc1ODAyNzg2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
