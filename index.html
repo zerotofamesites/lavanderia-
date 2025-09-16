@@ -176,14 +176,14 @@
         }
         
         .record-row {
-            padding: 2px 6px;
+            padding: 1px 2px;
             border-bottom: 1px solid rgba(59, 130, 246, 0.1);
             display: grid;
-            grid-template-columns: 40px 30px 30px 30px;
-            gap: 4px;
+            grid-template-columns: 35px 60px 45px 35px;
+            gap: 1px;
             align-items: center;
-            font-size: 10px;
-            line-height: 1.2;
+            font-size: 9px;
+            line-height: 1.1;
         }
         
         .record-row:last-child {
@@ -649,10 +649,10 @@
                     <div class="record-row text-gray-300">
                         <div class="text-white font-bold">${record.room}</div>
                         <div class="text-xs ${record.status === 'Reservado' ? 'text-red-400' : record.status === 'Disponível' ? 'text-green-400' : 'text-gray-400'}">
-                            ${record.status === 'Reservado' ? 'Res' : record.status === 'Disponível' ? 'Disp' : 'N/I'}
+                            ${record.status}
                         </div>
                         <div class="text-xs ${record.cleaning === 'Limpo' ? 'text-blue-400' : record.cleaning === 'Sujo' ? 'text-yellow-400' : 'text-gray-400'}">
-                            ${record.cleaning === 'Limpo' ? 'Lim' : record.cleaning === 'Sujo' ? 'Suj' : 'N/I'}
+                            ${record.cleaning}
                         </div>
                         <div class="text-white text-xs">${record.people}</div>
                     </div>
@@ -1091,5 +1091,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'980091e5212b274f',t:'MTc1ODAyNzg2OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9800a420c6e6f62f',t:'MTc1ODAyODYxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
