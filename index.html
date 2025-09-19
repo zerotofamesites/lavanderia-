@@ -455,7 +455,7 @@
                         </div>
                         <div class="bg-green-600/20 rounded-lg p-2">
                             <div id="availableCount" class="text-green-400 font-bold text-lg">0</div>
-                            <div class="text-green-300 text-xs">Disponíveis</div>
+                            <div class="text-green-300 text-xs">Não reservados</div>
                         </div>
                         <div class="bg-blue-600/20 rounded-lg p-2">
                             <div id="cleanCount" class="text-blue-400 font-bold text-lg">0</div>
@@ -594,7 +594,7 @@
             if (!selectedRoom) return;
             
             // Usar valores padrão se não selecionados
-            const statusText = selectedStatus ? (selectedStatus === 'S' ? 'Reservado' : 'Disponível') : 'Não informado';
+            const statusText = selectedStatus ? (selectedStatus === 'S' ? 'Reservado' : 'Não reservado') : 'Não informado';
             const cleaningText = selectedCleaning ? (selectedCleaning === 'L' ? 'Limpo' : 'Sujo') : 'Não informado';
             const peopleCount = selectedPeople !== null ? selectedPeople : 'Não informado';
             const time = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -653,7 +653,7 @@
                 recordsContainer.innerHTML = records.slice(0, 20).map(record => `
                     <div class="record-row text-gray-300">
                         <div class="text-white font-bold">${record.room}</div>
-                        <div class="text-xs ${record.status === 'Reservado' ? 'text-red-400' : record.status === 'Disponível' ? 'text-green-400' : 'text-gray-400'}">
+                        <div class="text-xs ${record.status === 'Reservado' ? 'text-red-400' : record.status === 'Não reservado' ? 'text-green-400' : 'text-gray-400'}">
                             ${record.status}
                         </div>
                         <div class="text-xs ${record.cleaning === 'Limpo' ? 'text-blue-400' : record.cleaning === 'Sujo' ? 'text-yellow-400' : 'text-gray-400'}">
@@ -670,7 +670,7 @@
         // Atualizar estatísticas
         function updateStatistics() {
             const reserved = records.filter(r => r.status === 'Reservado').length;
-            const available = records.filter(r => r.status === 'Disponível').length;
+            const available = records.filter(r => r.status === 'Não reservado').length;
             const clean = records.filter(r => r.cleaning === 'Limpo').length;
             const dirty = records.filter(r => r.cleaning === 'Sujo').length;
             
@@ -729,7 +729,7 @@
             const printWindow = window.open('', '_blank');
             
             const reserved = records.filter(r => r.status === 'Reservado').length;
-            const available = records.filter(r => r.status === 'Disponível').length;
+            const available = records.filter(r => r.status === 'Não reservado').length;
             const clean = records.filter(r => r.cleaning === 'Limpo').length;
             const dirty = records.filter(r => r.cleaning === 'Sujo').length;
             
@@ -843,7 +843,7 @@
                                     ${records.sort((a, b) => parseInt(a.room) - parseInt(b.room)).map(record => `
                                         <tr>
                                             <td><strong>${record.room}</strong></td>
-                                            <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Disponível' ? 'Disponível' : 'Não informado'}</td>
+                                            <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Não reservado' ? 'Não reservado' : 'Não informado'}</td>
                                             <td>${record.cleaning === 'Limpo' ? 'Limpo' : record.cleaning === 'Sujo' ? 'Sujo' : 'Não informado'}</td>
                                             <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
                                         </tr>
@@ -866,7 +866,7 @@
                                     ${records.sort((a, b) => parseInt(a.room) - parseInt(b.room)).map(record => `
                                         <tr>
                                             <td><strong>${record.room}</strong></td>
-                                            <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Disponível' ? 'Disponível' : 'Não informado'}</td>
+                                            <td>${record.status === 'Reservado' ? 'Reservado' : record.status === 'Não reservado' ? 'Não reservado' : 'Não informado'}</td>
                                             <td>${record.cleaning === 'Limpo' ? 'Limpo' : record.cleaning === 'Sujo' ? 'Sujo' : 'Não informado'}</td>
                                             <td>${record.people === 'Não informado' ? 'Nenhum' : record.people + (record.people == 1 ? ' pessoa' : ' pessoas')}</td>
                                         </tr>
@@ -926,5 +926,5 @@
         updateRecordsDisplay();
         updateStatistics();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9818750d41a8f61c',t:'MTc1ODI3ODM0Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98189ec2b5fff637',t:'MTc1ODI4MDA1NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
